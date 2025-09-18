@@ -3,7 +3,8 @@ import 'package:svfoods/utils/app_colors.dart';
 
 class CustomButton extends StatelessWidget {
   final String buttonName;
-  const CustomButton({super.key,required this.buttonName});
+  final VoidCallback onTap;
+  const CustomButton({super.key, required this.buttonName,required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -14,9 +15,7 @@ class CustomButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
         ),
       ),
-      onPressed: () {
-        // Handle login
-      },
+      onPressed: onTap,
       child: Ink(
         decoration: BoxDecoration(
           gradient: AppColors.loginButtonGradient,

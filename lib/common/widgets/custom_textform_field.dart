@@ -16,12 +16,13 @@ class CustomTextformField extends StatefulWidget {
 }
 
 class _CustomTextformFieldState extends State<CustomTextformField> {
+  bool isObscureText = true;
   @override
   Widget build(BuildContext context) {
-    bool _obscureText = true;
+    
     return TextFormField(
       cursorColor: AppColors.iconColor,
-      obscureText: widget.isPassword ? _obscureText : false,
+      obscureText: widget.isPassword ? isObscureText : false,
       style: const TextStyle(
         color: AppColors.textInput, // white text
       ),
@@ -30,7 +31,7 @@ class _CustomTextformFieldState extends State<CustomTextformField> {
         fillColor: Colors.transparent, // keeps background dark
         hintText: widget.inputText,
         hintStyle: const TextStyle(
-          color: AppColors.textPlaceholder, // gray placeholder
+          color: AppColors.textPlaceholder, 
         ),
         prefixIcon: Icon(
           widget.inputIcon,
@@ -39,12 +40,12 @@ class _CustomTextformFieldState extends State<CustomTextformField> {
          suffixIcon: widget.isPassword
             ? IconButton(
                 icon: Icon(
-                  _obscureText ? Icons.visibility_off : Icons.visibility,
+                  isObscureText ? Icons.visibility_off : Icons.visibility,
                   color: AppColors.iconColor,
                 ),
                 onPressed: () {
                   setState(() {
-                    _obscureText = !_obscureText;
+                    isObscureText = !isObscureText;
                   });
                 },
               )

@@ -8,10 +8,9 @@ class AppColors {
 
   static const Color textGreen = Colors.green;
   static const Color textWhite = Colors.white;
-  static const Color textGray = Color(0xFFA0A0A0);
   static const Color textPlaceholder = Color(0xFF7C7C7C);
   static const Color textInput = Color(0xFFFFFFFF);
-  static const Color textLinkGreen = Color(0xFF00FF94);
+
 
   // 🔵 Borders & Icons
   static const Color iconColor = Colors.green;
@@ -21,11 +20,7 @@ class AppColors {
 
   // 🔵 Buttons
   static const Color buttonBorder = Color(0xFF3A3A3A);
-  static const Color googleRed = Color(0xFFDB4437);
-  static const Color googleBlue = Color(0xFF4285F4);
-  static const Color googleYellow = Color(0xFFF4B400);
-  static const Color googleGreen = Color(0xFF0F9D58);
-  static const Color appleWhite = Color(0xFFFFFFFF);
+
 
   // 🔵 Gradients
   static const Gradient loginButtonGradient = LinearGradient(

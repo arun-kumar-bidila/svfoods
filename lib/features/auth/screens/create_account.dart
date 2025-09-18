@@ -1,9 +1,13 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:svfoods/common/widgets/custom_button.dart';
 import 'package:svfoods/common/widgets/custom_textform_field.dart';
+import 'package:svfoods/features/auth/screens/email_verification.dart';
+import 'package:svfoods/features/auth/screens/login.dart';
 import 'package:svfoods/utils/app_colors.dart';
 
 class CreateAccount extends StatefulWidget {
+  static const String routeName = "/create-account";
   const CreateAccount({super.key});
 
   @override
@@ -19,8 +23,7 @@ class _CreateAccountState extends State<CreateAccount> {
       body: SafeArea(
           child: SingleChildScrollView(
         child: Padding(
-          padding:
-              const EdgeInsets.only( bottom: 20, right: 25, left: 25),
+          padding: const EdgeInsets.only(bottom: 20, right: 25, left: 25),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -31,27 +34,26 @@ class _CreateAccountState extends State<CreateAccount> {
                 child: Image.asset(
                   "assets/logo.png",
                   height: 200,
-                
                 ),
               ),
 
               Text(
                 "Create Account",
                 style: TextStyle(
-                    color:AppColors.textGreen,
+                    color: AppColors.textGreen,
                     fontSize: 30,
                     fontWeight: FontWeight.bold),
               ),
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                "Create your account to use our services",
-                style: TextStyle(
-                    color:AppColors.textGreen,
-                    fontSize: 15,
-                    fontWeight: FontWeight.w400),
-              ),
+              // SizedBox(
+              //   height: 10,
+              // ),
+              // Text(
+              //   "Create your account to use our services",
+              //   style: TextStyle(
+              //       color: AppColors.textGreen,
+              //       fontSize: 15,
+              //       fontWeight: FontWeight.w400),
+              // ),
               SizedBox(
                 height: 30,
               ),
@@ -70,25 +72,25 @@ class _CreateAccountState extends State<CreateAccount> {
                 inputIcon: Icons.person,
               ),
               SizedBox(
-                height: 10,
+                height: 20,
               ),
-              Text(
-                "Mobile Number",
-                style: TextStyle(
-                    color: AppColors.textGreen,
-                    fontSize: 13,
-                    fontWeight: FontWeight.w600),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              CustomTextformField(
-                inputText: "Enter your mobile number",
-                inputIcon: Icons.phone,
-              ),
-              SizedBox(
-                height: 10,
-              ),
+              // Text(
+              //   "Mobile Number",
+              //   style: TextStyle(
+              //       color: AppColors.textGreen,
+              //       fontSize: 13,
+              //       fontWeight: FontWeight.w600),
+              // ),
+              // SizedBox(
+              //   height: 10,
+              // ),
+              // CustomTextformField(
+              //   inputText: "Enter your mobile number",
+              //   inputIcon: Icons.phone,
+              // ),
+              // SizedBox(
+              //   height: 10,
+              // ),
               Text(
                 "Email",
                 style: TextStyle(
@@ -126,6 +128,41 @@ class _CreateAccountState extends State<CreateAccount> {
               ),
               CustomButton(
                 buttonName: "Create Account",
+                onTap: () {
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, EmailVerification.routeName, (route) => false);
+                },
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              Container(
+                alignment: Alignment.center,
+                child: RichText(
+                  text: TextSpan(
+                    text: "Already have an account ?  ",
+                    style: TextStyle(
+                      color: AppColors.textWhite,
+                      fontSize: 15,
+                    ),
+                    children: [
+                      TextSpan(
+                          text: "Login",
+                          style: TextStyle(
+                              color: AppColors.textGreen,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                              decoration: TextDecoration.underline),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              Navigator.pushNamedAndRemoveUntil(
+                                  context,
+                                  Login.routeName,
+                                  (route) => false);
+                            }),
+                    ],
+                  ),
+                ),
               )
             ],
           ),
