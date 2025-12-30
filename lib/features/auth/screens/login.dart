@@ -15,6 +15,8 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -88,6 +90,7 @@ class _LoginState extends State<Login> {
               CustomTextformField(
                 inputText: "Enter your email",
                 inputIcon: Icons.email_outlined,
+                controller: emailController,
               ),
               SizedBox(
                 height: 20,
@@ -105,6 +108,7 @@ class _LoginState extends State<Login> {
               CustomTextformField(
                 inputText: "Enter your password",
                 inputIcon: Icons.security,
+                controller: passwordController,
                 isPassword: true,
               ),
               SizedBox(
@@ -114,8 +118,9 @@ class _LoginState extends State<Login> {
                 alignment: Alignment.centerRight,
                 child: GestureDetector(
                   onTap: () {
-                    Navigator.pushNamedAndRemoveUntil(
-                        context, ForgotPassword.routeName, (route) => false);
+                    
+                    // Navigator.pushNamedAndRemoveUntil(
+                    //     context, ForgotPassword.routeName, (route) => false);
                   },
                   child: Text(
                     "Forgot Password ?",

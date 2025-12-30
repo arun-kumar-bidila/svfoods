@@ -5,10 +5,12 @@ class CustomTextformField extends StatefulWidget {
   final String inputText;
   final IconData inputIcon;
   final bool isPassword;
+  final TextEditingController controller;
   const CustomTextformField(
       {super.key,
       required this.inputText,
       required this.inputIcon,
+      required this.controller,
       this.isPassword = false});
 
   @override
@@ -19,8 +21,8 @@ class _CustomTextformFieldState extends State<CustomTextformField> {
   bool isObscureText = true;
   @override
   Widget build(BuildContext context) {
-    
     return TextFormField(
+      controller: widget.controller,
       cursorColor: AppColors.iconColor,
       obscureText: widget.isPassword ? isObscureText : false,
       style: const TextStyle(
@@ -31,13 +33,13 @@ class _CustomTextformFieldState extends State<CustomTextformField> {
         fillColor: Colors.transparent, // keeps background dark
         hintText: widget.inputText,
         hintStyle: const TextStyle(
-          color: AppColors.textPlaceholder, 
+          color: AppColors.textPlaceholder,
         ),
         prefixIcon: Icon(
           widget.inputIcon,
           color: AppColors.iconColor,
         ),
-         suffixIcon: widget.isPassword
+        suffixIcon: widget.isPassword
             ? IconButton(
                 icon: Icon(
                   isObscureText ? Icons.visibility_off : Icons.visibility,

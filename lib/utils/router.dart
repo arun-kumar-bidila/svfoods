@@ -13,15 +13,15 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
     case Login.routeName:
       return MaterialPageRoute(
           settings: routeSettings, builder: (_) => Login());
-    case EmailVerification.routeName:
-      return MaterialPageRoute(
-          settings: routeSettings, builder: (_) => EmailVerification());
-    case ForgotPassword.routeName:
-      return MaterialPageRoute(
-          settings: routeSettings, builder: (_) => ForgotPassword());
-    case ResetPassword.routeName:
-      return MaterialPageRoute(
-          settings: routeSettings, builder: (_) => ResetPassword());
+    // case EmailVerification.routeName:
+    //   return MaterialPageRoute(
+    //       settings: routeSettings, builder: (_) => EmailVerification());
+    // case ForgotPassword.routeName:
+    //   return MaterialPageRoute(
+    //       settings: routeSettings, builder: (_) => ForgotPassword());
+    // case ResetPassword.routeName:
+    //   return MaterialPageRoute(
+    //       settings: routeSettings, builder: (_) => ResetPassword());
     default:
       return MaterialPageRoute(
           settings: routeSettings,

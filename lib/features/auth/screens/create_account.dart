@@ -4,6 +4,7 @@ import 'package:svfoods/common/widgets/custom_button.dart';
 import 'package:svfoods/common/widgets/custom_textform_field.dart';
 import 'package:svfoods/features/auth/screens/email_verification.dart';
 import 'package:svfoods/features/auth/screens/login.dart';
+import 'package:svfoods/features/auth/user_service.dart';
 import 'package:svfoods/utils/app_colors.dart';
 
 class CreateAccount extends StatefulWidget {
@@ -15,6 +16,11 @@ class CreateAccount extends StatefulWidget {
 }
 
 class _CreateAccountState extends State<CreateAccount> {
+  final UserService userService = UserService();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,6 +76,7 @@ class _CreateAccountState extends State<CreateAccount> {
               CustomTextformField(
                 inputText: "Enter your name",
                 inputIcon: Icons.person,
+                controller: nameController,
               ),
               SizedBox(
                 height: 20,
@@ -104,6 +111,7 @@ class _CreateAccountState extends State<CreateAccount> {
               CustomTextformField(
                 inputText: "Enter your email",
                 inputIcon: Icons.email_outlined,
+                controller: emailController,
               ),
               SizedBox(
                 height: 20,
@@ -121,6 +129,7 @@ class _CreateAccountState extends State<CreateAccount> {
               CustomTextformField(
                 inputText: "Enter your password",
                 inputIcon: Icons.security,
+                controller: passwordController,
                 isPassword: true,
               ),
               SizedBox(
@@ -128,9 +137,16 @@ class _CreateAccountState extends State<CreateAccount> {
               ),
               CustomButton(
                 buttonName: "Create Account",
-                onTap: () {
-                  Navigator.pushNamedAndRemoveUntil(
-                      context, EmailVerification.routeName, (route) => false);
+                onTap: () async {
+                  bool response = await userService.createUser(
+                      name: nameController.text,
+                      email: emailController.text,
+                      password: passwordController.text);
+
+                  if (response == true) {
+                    Navigator.pushNamedAndRemoveUntil(
+                        context, Login.routeName, (route) => false);
+                  }
                 },
               ),
               SizedBox(
@@ -156,9 +172,7 @@ class _CreateAccountState extends State<CreateAccount> {
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
                               Navigator.pushNamedAndRemoveUntil(
-                                  context,
-                                  Login.routeName,
-                                  (route) => false);
+                                  context, Login.routeName, (route) => false);
                             }),
                     ],
                   ),
