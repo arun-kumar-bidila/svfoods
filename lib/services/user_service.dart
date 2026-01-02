@@ -1,11 +1,14 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:svfoods/common/dialogs/response_dialog.dart';
 import 'package:svfoods/features/auth/screens/login.dart';
 import 'package:svfoods/features/bottombar/bottombar.dart';
 import 'package:svfoods/models/user.dart';
 import 'package:http/http.dart' as http;
+import 'package:svfoods/provider/user_provider.dart';
 import 'package:svfoods/utils/app_colors.dart';
 
 class UserService {
@@ -65,7 +68,14 @@ class UserService {
         ResponseDialog.showSuccessResponseDialog(
             context: context,
             successMessage: "Login Successful",
-            onSuccess: () {
+            onSuccess: () async {
+              SharedPreferences prefs = await SharedPreferences.getInstance();
+
+              Provider.of<UserProvider>(context, listen: false)
+                  .setUser(response.body);
+
+              await prefs.setString("token", data["token"]);
+
               Navigator.pushNamedAndRemoveUntil(
                   context, Bottombar.routeName, (route) => false);
             });

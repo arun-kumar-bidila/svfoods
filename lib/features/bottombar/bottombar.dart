@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:svfoods/features/cart/cart.dart';
 import 'package:svfoods/features/home/home.dart';
 import 'package:svfoods/features/orders/orders.dart';
 import 'package:svfoods/features/profile/profile.dart';
+import 'package:svfoods/provider/user_provider.dart';
 import 'package:svfoods/utils/app_colors.dart';
 
 class Bottombar extends StatefulWidget {
@@ -26,6 +28,7 @@ class _BottombarState extends State<Bottombar> {
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<UserProvider>(context).user;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.backgroundDark,
@@ -33,8 +36,9 @@ class _BottombarState extends State<Bottombar> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              "Hello, Arun",
-              style: TextStyle(color: AppColors.textGreen,fontWeight: FontWeight.bold),
+              "Hello ${user.name}",
+              style: TextStyle(
+                  color: AppColors.textGreen, fontWeight: FontWeight.bold),
             ),
             Image.asset(
               "assets/logo.png",

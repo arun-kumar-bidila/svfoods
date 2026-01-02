@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:svfoods/features/auth/screens/create_account.dart';
+import 'package:svfoods/features/auth/screens/login.dart';
 import 'package:svfoods/features/bottombar/bottombar.dart';
+import 'package:svfoods/provider/user_provider.dart';
 import 'package:svfoods/utils/router.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MultiProvider(
+      providers: [ChangeNotifierProvider(create: (context) => UserProvider())],
+      child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -19,7 +24,7 @@ class MyApp extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       onGenerateRoute: (settings) => generateRoute(settings),
-      home: const Bottombar(),
+      home: const Login(),
     );
   }
 }
