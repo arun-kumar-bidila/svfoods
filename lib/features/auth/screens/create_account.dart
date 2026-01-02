@@ -2,9 +2,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:svfoods/common/widgets/custom_button.dart';
 import 'package:svfoods/common/widgets/custom_textform_field.dart';
-import 'package:svfoods/features/auth/screens/email_verification.dart';
 import 'package:svfoods/features/auth/screens/login.dart';
-import 'package:svfoods/features/auth/user_service.dart';
+import 'package:svfoods/services/user_service.dart';
 import 'package:svfoods/utils/app_colors.dart';
 
 class CreateAccount extends StatefulWidget {
@@ -138,15 +137,11 @@ class _CreateAccountState extends State<CreateAccount> {
               CustomButton(
                 buttonName: "Create Account",
                 onTap: () async {
-                  bool response = await userService.createUser(
+                  await userService.createUser(
                       name: nameController.text,
                       email: emailController.text,
-                      password: passwordController.text);
-
-                  if (response == true) {
-                    Navigator.pushNamedAndRemoveUntil(
-                        context, Login.routeName, (route) => false);
-                  }
+                      password: passwordController.text,
+                      context: context);
                 },
               ),
               SizedBox(

@@ -9,7 +9,9 @@ The svg picture , try again or continue button will be passed from the response 
 
 class ResponseDialog {
   static void showSuccessResponseDialog(
-      {required BuildContext context, required String successMessage}) {
+      {required BuildContext context,
+      required String successMessage,
+      required VoidCallback onSuccess}) {
     showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -53,7 +55,8 @@ class ResponseDialog {
                   ),
                   TextButton(
                       onPressed: () {
-                        Navigator.pop(context);
+                        // Navigator.pop(context);
+                        onSuccess();
                       },
                       style: TextButton.styleFrom(
                           shape: RoundedRectangleBorder(

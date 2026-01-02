@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:svfoods/common/widgets/custom_button.dart';
 import 'package:svfoods/common/widgets/custom_textform_field.dart';
 import 'package:svfoods/features/auth/screens/create_account.dart';
-import 'package:svfoods/features/auth/screens/forgot_password.dart';
 import 'package:svfoods/utils/app_colors.dart';
 
 class Login extends StatefulWidget {
