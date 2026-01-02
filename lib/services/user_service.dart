@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:svfoods/common/dialogs/response_dialog.dart';
 import 'package:svfoods/features/auth/screens/login.dart';
+import 'package:svfoods/features/bottombar/bottombar.dart';
 import 'package:svfoods/models/user.dart';
 import 'package:http/http.dart' as http;
 import 'package:svfoods/utils/app_colors.dart';
@@ -42,7 +43,36 @@ class UserService {
             context: context, errorMessage: data["message"]);
       }
     } catch (e) {
-      print(e);
+      ResponseDialog.showErrorResponseDialog(
+          context: context, errorMessage: e.toString());
+    }
+  }
+
+  Future<void> loginUser(
+      {required String email,
+      required String password,
+      required BuildContext context}) async {
+    try {
+      final response = await http.post(Uri.parse("$uri/api/user/login"),
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: jsonEncode({"email": email, "password": password}));
+
+      final Map<String, dynamic> data = jsonDecode(response.body);
+
+      if (data["success"] == true) {
+        ResponseDialog.showSuccessResponseDialog(
+            context: context,
+            successMessage: "Login Successful",
+            onSuccess: () {
+              Navigator.pushNamedAndRemoveUntil(
+                  context, Bottombar.routeName, (route) => false);
+            });
+      }
+    } catch (e) {
+      ResponseDialog.showErrorResponseDialog(
+          context: context, errorMessage: e.toString());
     }
   }
 }

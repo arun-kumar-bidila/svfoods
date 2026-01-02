@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:svfoods/common/widgets/custom_button.dart';
 import 'package:svfoods/common/widgets/custom_textform_field.dart';
 import 'package:svfoods/features/auth/screens/create_account.dart';
+import 'package:svfoods/services/user_service.dart';
 import 'package:svfoods/utils/app_colors.dart';
 
 class Login extends StatefulWidget {
@@ -16,6 +17,7 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  UserService userService = UserService();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -117,7 +119,6 @@ class _LoginState extends State<Login> {
                 alignment: Alignment.centerRight,
                 child: GestureDetector(
                   onTap: () {
-                    
                     // Navigator.pushNamedAndRemoveUntil(
                     //     context, ForgotPassword.routeName, (route) => false);
                   },
@@ -136,7 +137,12 @@ class _LoginState extends State<Login> {
               ),
               CustomButton(
                 buttonName: "Login",
-                onTap: () {},
+                onTap: () async {
+                  await userService.loginUser(
+                      email: emailController.text,
+                      password: passwordController.text,
+                      context: context);
+                },
               ),
               SizedBox(
                 height: 30,

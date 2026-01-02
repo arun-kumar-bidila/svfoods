@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:svfoods/features/auth/screens/create_account.dart';
+import 'package:svfoods/features/bottombar/bottombar.dart';
 import 'package:svfoods/utils/router.dart';
 
 void main() {
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       onGenerateRoute: (settings) => generateRoute(settings),
-      home: const CreateAccount(),
+      home: const Bottombar(),
     );
   }
 }

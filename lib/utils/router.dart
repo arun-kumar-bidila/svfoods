@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:svfoods/features/auth/screens/create_account.dart';
 import 'package:svfoods/features/auth/screens/login.dart';
+import 'package:svfoods/features/bottombar/bottombar.dart';
 
 Route<dynamic> generateRoute(RouteSettings routeSettings) {
   switch (routeSettings.name) {
@@ -10,6 +11,9 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
     case Login.routeName:
       return MaterialPageRoute(
           settings: routeSettings, builder: (_) => Login());
+    case Bottombar.routeName:
+      return MaterialPageRoute(
+          settings: routeSettings, builder: (_) => Bottombar());
     // case EmailVerification.routeName:
     //   return MaterialPageRoute(
     //       settings: routeSettings, builder: (_) => EmailVerification());
