@@ -47,6 +47,12 @@ class _BottombarState extends State<Bottombar> {
             )
           ],
         ),
+        bottom: PreferredSize(
+            preferredSize: Size.fromHeight(0.5),
+            child: Container(
+              height: 0.5,
+              color: Colors.white,
+            )),
       ),
       body: pages[page],
       bottomNavigationBar: Theme(
