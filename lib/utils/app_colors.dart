@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-final String uri = "http://10.176.185.59:4000";
+final String uri = "http://10.82.232.59:4000";
 
 class AppColors {
   // 🔵 Background
