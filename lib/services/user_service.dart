@@ -56,31 +56,71 @@ class UserService {
       required String password,
       required BuildContext context}) async {
     try {
+      print("\n");
+      print("function invoked");
+      print(email);
       final response = await http.post(Uri.parse("$uri/api/user/login"),
-          headers: {
-            "Content-Type": "application/json",
-          },
+          headers: {"Content-Type": "application/json"},
           body: jsonEncode({"email": email, "password": password}));
+
+      print("\n");
+      print("function called");
 
       final Map<String, dynamic> data = jsonDecode(response.body);
 
+      print(data["token"]);
+
       if (data["success"] == true) {
+        Provider.of<UserProvider>(context, listen: false)
+            .setUser(response.body);
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+
+        await prefs.setString("token", data["token"]);
+
         ResponseDialog.showSuccessResponseDialog(
             context: context,
             successMessage: "Login Successful",
-            onSuccess: () async {
-              SharedPreferences prefs = await SharedPreferences.getInstance();
-
-              Provider.of<UserProvider>(context, listen: false)
-                  .setUser(response.body);
-
-              await prefs.setString("token", data["token"]);
-
+            onSuccess: () {
               Navigator.pushNamedAndRemoveUntil(
                   context, Bottombar.routeName, (route) => false);
+              print("function passed");
             });
+      } else {
+        ResponseDialog.showErrorResponseDialog(
+            context: context, errorMessage: data["message"]);
       }
     } catch (e) {
+      ResponseDialog.showErrorResponseDialog(
+          context: context, errorMessage: e.toString());
+    }
+  }
+
+  Future<void> getUserData({required BuildContext context}) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String? token = prefs.getString("token");
+
+      if (token == null) {
+        prefs.setString("token", "");
+      }
+
+      final response = await http.get(Uri.parse("$uri/api/user/getdata"),
+          headers: {"Content-Type": "application/json", "token": token!});
+
+      final Map<String, dynamic> data = jsonDecode(response.body);
+      
+      if (data["success"] == true) {
+        userProvider.setUser(response.body);
+        userProvider.setIsLoading(false);
+        print("function passed");
+      } else {
+        userProvider.setIsLoading(false);
+        ResponseDialog.showErrorResponseDialog(
+            context: context, errorMessage: data["message"]);
+      }
+    } catch (e) {
+      userProvider.setIsLoading(false);
       ResponseDialog.showErrorResponseDialog(
           context: context, errorMessage: e.toString());
     }

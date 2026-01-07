@@ -36,7 +36,7 @@ class _BottombarState extends State<Bottombar> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              "Hello ${user.name}",
+              "Hello, ${user.name}",
               style: TextStyle(
                   color: AppColors.textGreen, fontWeight: FontWeight.bold),
             ),

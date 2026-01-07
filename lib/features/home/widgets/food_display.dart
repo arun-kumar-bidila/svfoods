@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:svfoods/common/widgets/custom_button.dart';
 import 'package:svfoods/provider/food_provider.dart';
 import 'package:svfoods/utils/app_colors.dart';
 
@@ -24,13 +25,16 @@ class _FoodDisplayState extends State<FoodDisplay> {
   Widget build(BuildContext context) {
     final foodprovider = context.watch<FoodProvider>();
     if (foodprovider.isLoading) {
-      return Center(child: CircularProgressIndicator());
+      return Center(
+          child: CircularProgressIndicator(
+        color: Colors.green,
+      ));
     }
     return Expanded(
       child: GridView.builder(
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
-            childAspectRatio: 0.75,
+            childAspectRatio: 0.6,
             crossAxisSpacing: 12,
             mainAxisSpacing: 12,
           ),
@@ -64,12 +68,10 @@ class _FoodDisplayState extends State<FoodDisplay> {
                         Text(
                           "₹${food.price}",
                           style: const TextStyle(
-                            color: Colors.green,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold
-                          ),
+                              color: Colors.green,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold),
                         ),
-                        
                         const SizedBox(height: 4),
                         Text(
                           food.name,
@@ -79,7 +81,22 @@ class _FoodDisplayState extends State<FoodDisplay> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        
+                        Container(
+                          alignment: Alignment.center,
+                          margin: EdgeInsets.only(top: 6),
+                          height: 35,
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(6),
+                              gradient: AppColors.loginButtonGradient),
+                          child: Text(
+                            "Add To Plate",
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        )
                       ],
                     ),
                   )

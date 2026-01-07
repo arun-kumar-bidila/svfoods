@@ -57,7 +57,7 @@ class _HomeState extends State<Home> {
                                       color: isSelected
                                           ? Colors.green
                                           : Colors.transparent,
-                                      width: 4),
+                                      width: 2),
                                 ),
                                 child: CircleAvatar(
                                   radius: 35,

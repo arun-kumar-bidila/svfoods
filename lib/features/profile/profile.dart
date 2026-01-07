@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:svfoods/common/widgets/custom_button.dart';
 import 'package:svfoods/provider/user_provider.dart';
+import 'package:svfoods/services/profile_service.dart';
 import 'package:svfoods/utils/app_colors.dart';
 
 class Profile extends StatefulWidget {
@@ -12,6 +13,8 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+  ProfileService profileService = ProfileService();
+
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<UserProvider>(context).user;
@@ -52,14 +55,16 @@ class _ProfileState extends State<Profile> {
                       fontSize: 10,
                       fontWeight: FontWeight.normal),
                 ),
-          
-                
               ],
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 30,horizontal: 25),
-            child: CustomButton(buttonName: "Log Out", onTap: (){}),
+            padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 25),
+            child: CustomButton(
+                buttonName: "Log Out",
+                onTap: () async {
+                  await profileService.logOutUser(context: context);
+                }),
           )
         ],
       ),
