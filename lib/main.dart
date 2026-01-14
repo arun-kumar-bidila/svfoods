@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:svfoods/features/auth/screens/create_account.dart';
+import 'package:svfoods/common/widgets/splash_screen.dart';
+
 import 'package:svfoods/features/auth/screens/login.dart';
 import 'package:svfoods/features/bottombar/bottombar.dart';
 import 'package:svfoods/provider/food_provider.dart';
 import 'package:svfoods/provider/user_provider.dart';
 import 'package:svfoods/services/user_service.dart';
-import 'package:svfoods/utils/app_colors.dart';
 import 'package:svfoods/utils/router.dart';
 
 void main() {
@@ -24,41 +24,30 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  // This widget is the root of your application.
-
-  UserService userService = UserService();
+  final UserService userService = UserService();
 
   @override
-  void initState()  {
-    // TODO: implement initState
-
+  void initState() {
     super.initState();
-    userService.getUserData(context: context);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      userService.getUserData(context: context);
+    });
   }
+  
 
   @override
   Widget build(BuildContext context) {
     final userProvider = Provider.of<UserProvider>(context);
-    if (userProvider.isLoading) {
-      return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: Scaffold(
-          backgroundColor: AppColors.backgroundDark,
-          body: Center(
-            child: CircularProgressIndicator(
-              color: Colors.green,
-            ),
-          ),
-        ),
-      );
-    }
+
     return MaterialApp(
-      theme: ThemeData(
-        useMaterial3: true,
-      ),
       debugShowCheckedModeBanner: false,
-      onGenerateRoute: (settings) => generateRoute(settings),
-      home: userProvider.user.email.isNotEmpty ? Bottombar() : Login(),
+      theme: ThemeData(useMaterial3: true),
+      onGenerateRoute: generateRoute,
+      home: userProvider.isLoading
+          ? const SplashScreen()
+          : userProvider.user.email.isNotEmpty
+              ? const Bottombar()
+              : const Login(),
     );
   }
 }

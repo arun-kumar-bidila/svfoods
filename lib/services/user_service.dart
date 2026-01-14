@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -51,7 +50,7 @@ class UserService {
     }
   }
 
-  Future<void> loginUser(
+  Future<bool> loginUser(
       {required String email,
       required String password,
       required BuildContext context}) async {
@@ -76,22 +75,25 @@ class UserService {
         SharedPreferences prefs = await SharedPreferences.getInstance();
 
         await prefs.setString("token", data["token"]);
+        return data["success"];
 
-        ResponseDialog.showSuccessResponseDialog(
-            context: context,
-            successMessage: "Login Successful",
-            onSuccess: () {
-              Navigator.pushNamedAndRemoveUntil(
-                  context, Bottombar.routeName, (route) => false);
-              print("function passed");
-            });
+        // ResponseDialog.showSuccessResponseDialog(
+        //     context: context,
+        //     successMessage: "Login Successful",
+        //     onSuccess: () {
+        //       Navigator.pushNamedAndRemoveUntil(
+        //           context, Bottombar.routeName, (route) => false);
+        //       print("function passed");
+        //     });
       } else {
-        ResponseDialog.showErrorResponseDialog(
-            context: context, errorMessage: data["message"]);
+        return data["success"];
+        // ResponseDialog.showErrorResponseDialog(
+        //     context: context, errorMessage: data["message"]);
       }
     } catch (e) {
-      ResponseDialog.showErrorResponseDialog(
-          context: context, errorMessage: e.toString());
+      return false;
+      // ResponseDialog.showErrorResponseDialog(
+      //     context: context, errorMessage: e.toString());
     }
   }
 
@@ -109,20 +111,19 @@ class UserService {
           headers: {"Content-Type": "application/json", "token": token!});
 
       final Map<String, dynamic> data = jsonDecode(response.body);
-      
+
       if (data["success"] == true) {
         userProvider.setUser(response.body);
+        await Future.delayed(Duration(seconds: 2));
         userProvider.setIsLoading(false);
         print("function passed");
       } else {
+        await Future.delayed(Duration(seconds: 2));
         userProvider.setIsLoading(false);
-        ResponseDialog.showErrorResponseDialog(
-            context: context, errorMessage: data["message"]);
       }
     } catch (e) {
+      await Future.delayed(Duration(seconds: 2));
       userProvider.setIsLoading(false);
-      ResponseDialog.showErrorResponseDialog(
-          context: context, errorMessage: e.toString());
     }
   }
 }

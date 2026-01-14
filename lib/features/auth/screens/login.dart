@@ -1,8 +1,10 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:svfoods/common/dialogs/response_dialog.dart';
 import 'package:svfoods/common/widgets/custom_button.dart';
 import 'package:svfoods/common/widgets/custom_textform_field.dart';
 import 'package:svfoods/features/auth/screens/create_account.dart';
+import 'package:svfoods/features/bottombar/bottombar.dart';
 import 'package:svfoods/services/user_service.dart';
 import 'package:svfoods/utils/app_colors.dart';
 
@@ -138,10 +140,23 @@ class _LoginState extends State<Login> {
               CustomButton(
                 buttonName: "Login",
                 onTap: () async {
-                  await userService.loginUser(
+                  bool response = await userService.loginUser(
                       email: emailController.text,
                       password: passwordController.text,
                       context: context);
+                  if (response) {
+                    ResponseDialog.showSuccessResponseDialog(
+                        context: context,
+                        successMessage: "Login Successful",
+                        onSuccess: () {
+                          Navigator.pushNamedAndRemoveUntil(
+                              context, Bottombar.routeName, (route) => false);
+                        });
+                  } else {
+                    ResponseDialog.showErrorResponseDialog(
+                        context: context,
+                        errorMessage: "Error occured in login route");
+                  }
                 },
               ),
               SizedBox(

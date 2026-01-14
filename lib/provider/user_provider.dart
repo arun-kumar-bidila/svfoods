@@ -13,7 +13,8 @@ class UserProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setIsLoading(bool val) {
+  void setIsLoading(bool val) async{
+    
     _isLoading = val;
     notifyListeners();
   }

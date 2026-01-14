@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:svfoods/features/cart/cart.dart';
-import 'package:svfoods/features/home/home.dart';
+import 'package:svfoods/features/home/screens/home.dart';
 import 'package:svfoods/features/orders/orders.dart';
 import 'package:svfoods/features/profile/profile.dart';
 import 'package:svfoods/provider/user_provider.dart';
@@ -31,20 +31,29 @@ class _BottombarState extends State<Bottombar> {
     final user = Provider.of<UserProvider>(context).user;
     return Scaffold(
       appBar: AppBar(
+        scrolledUnderElevation: 0,
+        
         backgroundColor: AppColors.backgroundDark,
         title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              "Hello, ${user.name}",
-              style: TextStyle(
-                  color: AppColors.textGreen, fontWeight: FontWeight.bold),
-            ),
+            // Text(
+            //   "Hello,",
+            //   style: TextStyle(
+            //       color: AppColors.textGreen,
+            //       fontWeight: FontWeight.bold,
+            //       fontSize: 20),
+            // ),
             Image.asset(
               "assets/logo.png",
               height: 120,
               width: 120,
-            )
+            ),
+            // Icon(
+            //   Icons.notifications_rounded,
+            //   size: 24,
+            //   color: Colors.green,
+            // )
           ],
         ),
         bottom: PreferredSize(
@@ -71,7 +80,7 @@ class _BottombarState extends State<Bottombar> {
               unselectedItemColor: AppColors.textInput,
               iconSize: 25,
               items: [
-                BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+                BottomNavigationBarItem(icon: Icon(Icons.home_max_rounded), label: "Home"),
                 BottomNavigationBarItem(
                     icon: Icon(Icons.shopping_cart_outlined), label: "Plate"),
                 BottomNavigationBarItem(
