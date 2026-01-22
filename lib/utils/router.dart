@@ -3,6 +3,8 @@ import 'package:svfoods/features/auth/screens/create_account.dart';
 import 'package:svfoods/features/auth/screens/login.dart';
 import 'package:svfoods/features/bottombar/bottombar.dart';
 import 'package:svfoods/features/home/screens/category_foods.dart';
+import 'package:svfoods/features/home/screens/food_screen.dart';
+import 'package:svfoods/models/food_item.dart';
 
 Route<dynamic> generateRoute(RouteSettings routeSettings) {
   switch (routeSettings.name) {
@@ -27,8 +29,15 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
     case CategoryFoods.routeName:
       final categoryName = routeSettings.arguments as String;
       return MaterialPageRoute(
-        settings: routeSettings,
+          settings: routeSettings,
           builder: (_) => CategoryFoods(categoryName: categoryName));
+    case FoodScreen.routeName:
+      final food = routeSettings.arguments as FoodItem;
+      return MaterialPageRoute(
+          settings: routeSettings,
+          builder: (_) => FoodScreen(
+                food: food,
+              ));
     default:
       return MaterialPageRoute(
           settings: routeSettings,

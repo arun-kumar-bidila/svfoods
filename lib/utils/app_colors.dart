@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-// final String uri = "http://10.127.17.59:4000";
-final String uri = "https://svfoods-server.onrender.com";
+final String uri = "http://10.82.96.59:4000";
+// final String uri = "https://svfoods-server.onrender.com";
 
 class AppColors {
   // 🔵 Background

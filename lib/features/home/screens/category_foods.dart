@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:svfoods/features/home/screens/food_screen.dart';
 import 'package:svfoods/provider/food_provider.dart';
 
 import 'package:svfoods/utils/app_colors.dart';
@@ -29,25 +30,36 @@ class _CategoryFoodsState extends State<CategoryFoods> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              GestureDetector(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: Icon(
-                  Icons.arrow_back_ios_new_rounded,
-                  color: Colors.green,
-                  size: 24,
-                ),
-              ),
               SizedBox(
                 height: 20,
               ),
-              Text(
-                "${widget.categoryName} (${filteredFoods.length})",
-                style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.green),
+              Row(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: Icon(
+                      Icons.arrow_back_ios_new_rounded,
+                      color: Colors.green,
+                      size: 25,
+                    ),
+                  ),
+                  Expanded(
+                    child: Center(
+                      child: Text(
+                        "${widget.categoryName} (${filteredFoods.length})",
+                        style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.green),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 25,
+                  )
+                ],
               ),
               SizedBox(
                 height: 20,
@@ -62,50 +74,56 @@ class _CategoryFoodsState extends State<CategoryFoods> {
                         mainAxisSpacing: 10),
                     itemBuilder: (context, index) {
                       final food = filteredFoods[index];
-                      return Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                            color: AppColors.backgroundDark,
-                            border:
-                                Border.all(color: Colors.white, width: 1.5)),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Expanded(
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.vertical(
-                                    top: Radius.circular(8)),
-                                child: Image.network(
-                                  "$uri/images/${food.image}",
-                                  fit: BoxFit.cover,
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(context, FoodScreen.routeName,
+                              arguments: food);
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                              color: AppColors.backgroundDark,
+                              border:
+                                  Border.all(color: Colors.white, width: 1.5)),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Expanded(
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.vertical(
+                                      top: Radius.circular(8)),
+                                  child: Image.network(
+                                    "$uri/images/${food.image}",
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    food.name,
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
+                              Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      food.name,
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
-                                  ),
-                                  const SizedBox(height: 4),
-                                  Text(
-                                    "₹${food.price}",
-                                    style: const TextStyle(
-                                        color: Colors.green,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ],
-                              ),
-                            )
-                          ],
+                                    const SizedBox(height: 4),
+                                    Text(
+                                      "₹${food.price}",
+                                      style: const TextStyle(
+                                          color: Colors.green,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                       );
                     }),

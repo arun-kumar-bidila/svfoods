@@ -28,7 +28,7 @@ class _BottombarState extends State<Bottombar> {
 
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<UserProvider>(context).user;
+    // final user = Provider.of<UserProvider>(context).user;
     return Scaffold(
       appBar: AppBar(
         scrolledUnderElevation: 0,

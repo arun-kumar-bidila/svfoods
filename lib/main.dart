@@ -40,6 +40,7 @@ class _MyAppState extends State<MyApp> {
     final userProvider = Provider.of<UserProvider>(context);
 
     return MaterialApp(
+      
       debugShowCheckedModeBanner: false,
       theme: ThemeData(useMaterial3: true),
       onGenerateRoute: generateRoute,
